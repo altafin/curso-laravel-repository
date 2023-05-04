@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('admin/categories', 'Admin\CategoryController');
+
 Route::get('/', function () {
     return view('welcome');
 });
