@@ -292,7 +292,7 @@ return [
     'menu' => [
         'OPÇÕES',
         [
-            'text' => 'categorias',
+            'text' => 'Categorias',
             'url'  => 'admin/categories',
         ],
         [
