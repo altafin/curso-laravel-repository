@@ -84,4 +84,8 @@ class CategoryController extends Controller
         DB::table('categories')->where('id', $id)->delete();
         return redirect()->route('categories.index');
     }
+
+    public function search(Request $request) {
+        dd($request->all());
+    }
 }

@@ -15,10 +15,13 @@
 @stop
 
 @section('content')
-    <div class="card card-primary">
-{{--        <div class="card-header">--}}
-{{--            <h3 class="card-title">Listagem</h3>--}}
-{{--        </div>--}}
+    <div class="card">
+        <div class="card-header">
+            <form action="{{ route('categories.search') }}" class="form form-inline">
+                <input type="text" name="search" placeholder="Pesquisar" class="form-control">
+                <button type="submit" class="btn btn-success">Pesquisar</button>
+            </form>
+        </div>
         <div class="card-body">
             <table class="table table-condensed">
                 <thead>
