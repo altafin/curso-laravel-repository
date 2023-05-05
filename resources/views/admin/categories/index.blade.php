@@ -20,6 +20,9 @@
             <form action="{{ route('categories.search') }}" class="form form-inline" method="POST">
                 @csrf
                 <input type="text" name="search" placeholder="Pesquisar" class="form-control">
+                <input type="text" name="title" placeholder="Título" class="form-control" value="{{ $data['title'] ?? '' }}">
+                <input type="text" name="url" placeholder="URL" class="form-control" value="{{ $data['url'] ?? '' }}">
+                <input type="text" name="description" placeholder="Descrição" class="form-control" value="{{ $data['description'] ?? '' }}">
                 <button type="submit" class="btn btn-success">Pesquisar</button>
             </form>
             @if (isset($search))

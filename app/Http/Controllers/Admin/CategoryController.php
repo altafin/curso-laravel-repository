@@ -86,12 +86,28 @@ class CategoryController extends Controller
     }
 
     public function search(Request $request) {
-        $search = $request->search;
-        $categories = DB::table('categories')
-            ->where('title', $search)
-            ->orWhere('url', $search)
-            ->orWhere('description', 'LIKE', "%{$search}%")
-            ->get();
-        return view('admin.categories.index', compact('categories', 'search'));
+        $data = $request->all();
+        if (isset($data['search'])) {
+            $categories = DB::table('categories')
+                ->where('title', $data['search'])
+                ->orWhere('url', $data['search'])
+                ->orWhere('description', 'LIKE', "%{$data['search']}%")
+                ->get();
+        } else {
+            $categories = DB::table('categories')
+                ->where(function ($query) use ($data) {
+                    if (isset($data['title'])) {
+                        $query->where('title', $data['title']);
+                    }
+                    if (isset($data['url'])) {
+                        $query->orWhere('url', $data['url']);
+                    }
+                    if (isset($data['description'])) {
+                        $query->orWhere('description', 'LIKE',  "%{$data['description']}%");
+                    }
+                })
+                ->get();
+        }
+        return view('admin.categories.index', compact('categories', 'data'));
     }
 }
