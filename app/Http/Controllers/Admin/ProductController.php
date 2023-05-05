@@ -3,16 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $product;
+    public function __construct(Product $product)
+    {
+        $this->product = $product;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $products = $this->product->with('category')->get();
+        return view('admin.products.index', compact('products'));
     }
 
     /**
