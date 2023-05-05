@@ -30,11 +30,12 @@
                 <input type="text" name="description" placeholder="Descrição" class="form-control" value="{{ $data['description'] ?? '' }}">
                 <button type="submit" class="btn btn-success">Pesquisar</button>
             </form>
-            @if (isset($search))
-                <p><strong>Resultados para: </strong>{{ $search }}</p>
+            @if (isset($data))
+                <a href="{{ route('categories.index') }}">(X) Limpar Resultados da Pesquisa</a>
             @endif
         </div>
         <div class="card-body">
+            @include('admin.includes.alerts')
             <table class="table table-condensed">
                 <thead>
                     <tr>
