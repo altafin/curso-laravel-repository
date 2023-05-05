@@ -44,7 +44,10 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = DB::table('categories')->where('id', $id)->first();
+        if (!$category)
+            return redirect()->back();
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
