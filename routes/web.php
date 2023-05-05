@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::post('admin/categories/search', [CategoryController::class, 'search'])->name('categories.search');
+Route::any('admin/categories/search', [CategoryController::class, 'search'])->name('categories.search');
 Route::resource('admin/categories', CategoryController::class);
 
 Route::get('/', function () {

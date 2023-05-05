@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')->paginate(2);
+        $categories = DB::table('categories')->paginate(1);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -86,13 +86,13 @@ class CategoryController extends Controller
     }
 
     public function search(Request $request) {
-        $data = $request->all();
+        $data = $request->except('_token');
         if (isset($data['search'])) {
             $categories = DB::table('categories')
                 ->where('title', $data['search'])
                 ->orWhere('url', $data['search'])
                 ->orWhere('description', 'LIKE', "%{$data['search']}%")
-                ->get();
+                ->paginate(1);
         } else {
             $categories = DB::table('categories')
                 ->where(function ($query) use ($data) {
@@ -106,7 +106,7 @@ class CategoryController extends Controller
                         $query->orWhere('description', 'LIKE',  "%{$data['description']}%");
                     }
                 })
-                ->get();
+                ->paginate(1);
         }
         return view('admin.categories.index', compact('categories', 'data'));
     }

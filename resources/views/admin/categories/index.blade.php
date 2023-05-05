@@ -53,7 +53,11 @@
             </table>
         </div>
         <div class="card-footer">
-            {!! $categories->links() !!}
+            @if (isset($data))
+                {!! $categories->appends($data)->links() !!}
+            @else
+                {!! $categories->links() !!}
+            @endif
         </div>
     </div>
 @stop
