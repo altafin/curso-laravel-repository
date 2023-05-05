@@ -61,7 +61,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUpdateCategoryFormRequest $request, string $id)
     {
         DB::table('categories')
             ->where('id', $id)
