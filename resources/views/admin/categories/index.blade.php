@@ -17,10 +17,14 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <form action="{{ route('categories.search') }}" class="form form-inline">
+            <form action="{{ route('categories.search') }}" class="form form-inline" method="POST">
+                @csrf
                 <input type="text" name="search" placeholder="Pesquisar" class="form-control">
                 <button type="submit" class="btn btn-success">Pesquisar</button>
             </form>
+            @if (isset($search))
+                <p><strong>Resultados para: </strong>{{ $search }}</p>
+            @endif
         </div>
         <div class="card-body">
             <table class="table table-condensed">

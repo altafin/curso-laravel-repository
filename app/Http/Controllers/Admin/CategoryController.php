@@ -86,6 +86,12 @@ class CategoryController extends Controller
     }
 
     public function search(Request $request) {
-        dd($request->all());
+        $search = $request->search;
+        $categories = DB::table('categories')
+            ->where('title', $search)
+            ->orWhere('url', $search)
+            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->get();
+        return view('admin.categories.index', compact('categories', 'search'));
     }
 }
