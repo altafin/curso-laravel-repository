@@ -30,7 +30,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return 'CategoryController@store';
+        DB::table('categories')->insert([
+            'title'       => $request->title,
+            'url'         => $request->url,
+            'description' => $request->description,
+        ]);
+        return redirect()->route('categories.index');
     }
 
     /**
