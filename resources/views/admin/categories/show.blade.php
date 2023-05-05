@@ -16,7 +16,11 @@
             <p><strong>URL: </strong>{{ $category->url }}</p>
             <p><strong>Descrição: </strong>{{ $category->description }}</p>
             <hr>
-            <button type="submit" class="btn btn-danger">Deletar</button>
+            <form action="{{ route('categories.destroy', $category->id) }}" class="form" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Deletar</button>
+            </form>
         </div>
     </div>
 @stop
