@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')->get();
+        $categories = DB::table('categories')->paginate(2);
         return view('admin.categories.index', compact('categories'));
     }
 
