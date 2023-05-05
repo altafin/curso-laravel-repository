@@ -63,7 +63,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        DB::table('categories')
+            ->where('id', $id)
+            ->update([
+                'title'       => $request->title,
+                'url'         => $request->url,
+                'description' => $request->description,
+            ]);
+        return redirect()->route('categories.index');
     }
 
     /**
