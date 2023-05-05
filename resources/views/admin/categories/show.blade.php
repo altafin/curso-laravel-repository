@@ -6,6 +6,12 @@
     <div class="row">
         <h1>Detalhes da Categoria: {{ $category->title }}</h1>
     </div>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('categories.index') }}">Categorias</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('categories.show', $category->id) }}">Detalhes</a></li>
+        </li>
+    </ol>
 @stop
 
 @section('content')
