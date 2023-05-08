@@ -6,14 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProductFormRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Repositories\Contracts\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    protected $product;
-    public function __construct(Product $product)
+    protected $repository;
+    public function __construct(ProductRepositoryInterface $repository)
     {
-        $this->product = $product;
+        $this->repository = $repository;
     }
 
     /**
@@ -21,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->product->with('category')->paginate();
+        $products = $this->repository->paginate();
         return view('admin.products.index', compact('products'));
     }
 
@@ -42,7 +43,7 @@ class ProductController extends Controller
         $category = Category::find($request->category_id);
         $product = $category->products()->create($request->all());
         */
-        $product = $this->product->create($request->all());
+        $product = $this->repository->create($request->all());
         return redirect()
             ->route('products.index')
             ->withSuccess('Produto Cadastrado');
@@ -53,7 +54,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        if (!$product = $this->product->with('category')->where('id', $id)->first())
+        if (!$product = $this->repository->with('category')->where('id', $id)->first())
             return redirect()->back();
         return view('admin.products.show', compact('product'));
     }
@@ -63,7 +64,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        if(!$product = $this->product->find($id))
+        if(!$product = $this->repository->find($id))
             return redirect()->back();
         return view('admin.products.edit', compact('product'));
     }
@@ -73,7 +74,7 @@ class ProductController extends Controller
      */
     public function update(StoreUpdateProductFormRequest $request, string $id)
     {
-        $this->product
+        $this->repository
             ->find($id)
             ->update($request->all());
 
@@ -87,7 +88,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->product->find($id)->delete();
+        $this->repository->find($id)->delete();
         return redirect()
             ->route('products.index')
             ->withSuccess('Deletado com sucesso!');
@@ -96,7 +97,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $filters = $request->except('_token');
-        $products = $this->product
+        $products = $this->repository
             ->with(['category'])
             ->where(function ($query) use ($request) {
                 if ($request->has('name')) {
