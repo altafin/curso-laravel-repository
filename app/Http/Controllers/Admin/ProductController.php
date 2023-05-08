@@ -39,11 +39,8 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProductFormRequest $request)
     {
-        /*
-        $category = Category::find($request->category_id);
-        $product = $category->products()->create($request->all());
-        */
-        $product = $this->repository->create($request->all());
+
+        $product = $this->repository->store($request->all());
         return redirect()
             ->route('products.index')
             ->withSuccess('Produto Cadastrado');
@@ -54,7 +51,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        if (!$product = $this->repository->with('category')->where('id', $id)->first())
+        if (!$product = $this->repository->findWhereFirst('id', $id));
             return redirect()->back();
         return view('admin.products.show', compact('product'));
     }
@@ -64,7 +61,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        if(!$product = $this->repository->find($id))
+        if(!$product = $this->repository->findbyId($id))
             return redirect()->back();
         return view('admin.products.edit', compact('product'));
     }
@@ -74,9 +71,7 @@ class ProductController extends Controller
      */
     public function update(StoreUpdateProductFormRequest $request, string $id)
     {
-        $this->repository
-            ->find($id)
-            ->update($request->all());
+        $this->repository->update($id, $request->all());
 
         return redirect()
             ->route('products.index')
@@ -88,7 +83,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->repository->find($id)->delete();
+        $this->repository->delete($id);
         return redirect()
             ->route('products.index')
             ->withSuccess('Deletado com sucesso!');
