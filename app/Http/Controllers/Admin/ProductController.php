@@ -38,7 +38,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        $category = Category::find($request->category_id);
+        $product = $category->products()->create($request->all());
+        */
+        $product = $this->product->create($request->all());
+        return redirect()
+            ->route('products.index')
+            ->withSuccess('Produto Cadastrado');
     }
 
     /**

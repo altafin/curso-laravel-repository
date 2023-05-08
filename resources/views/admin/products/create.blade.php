@@ -30,6 +30,9 @@
                     <input type="text" name="url" placeholder="URL" class="form-control">
                 </div>
                 <div class="form-group">
+                    <input type="text" name="price" placeholder="Preço" class="form-control">
+                </div>
+                <div class="form-group">
                     <select name="category_id" class="form-control">
                         <option value="">Escolha</option>
                         @foreach($categories as $category)
