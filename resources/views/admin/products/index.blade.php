@@ -23,6 +23,11 @@
         <div class="card-header">
         </div>
         <div class="card-body">
+            <form action="{{ route('products.search') }}" method="POST" class="form form-inline">
+                @csrf
+                <input type="text" name="filtro" placeholder="Filtro:" class="form-control">
+                <button type="submit">Pesquisar</button>
+            </form>
             @include('admin.includes.alerts')
             <table class="table table-condensed">
                 <thead>

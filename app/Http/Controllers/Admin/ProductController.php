@@ -94,4 +94,15 @@ class ProductController extends Controller
             ->route('products.index')
             ->withSuccess('Deletado com sucesso!');
     }
+
+    public function search(Request $request)
+    {
+        $data = $request->all();
+        $search = $data['filtro'];
+        $products = $this->product
+            ->with('category')
+            ->where('name', 'LIKE', "%{$search}%")
+            ->get();
+        return view('admin.products.index', compact('products'));
+    }
 }
