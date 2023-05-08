@@ -25,6 +25,12 @@
         <div class="card-body">
             <form action="{{ route('products.search') }}" method="POST" class="form form-inline">
                 @csrf
+                <select name="category" class="form-control">
+                    <option value="">Categoria</option>
+                    @foreach($categories as $id => $category)
+                        <option value="{{ $id }}">{{ $category }}</option>
+                    @endforeach
+                </select>
                 <input type="text" name="name" placeholder="Nome:" class="form-control">
                 <input type="text" name="price" placeholder="Preço:" class="form-control">
                 <button type="submit">Pesquisar</button>
