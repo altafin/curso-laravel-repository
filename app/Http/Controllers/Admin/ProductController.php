@@ -54,7 +54,9 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if (!$product = $this->product->with('category')->where('id', $id)->first())
+            return redirect()->back();
+        return view('admin.products.show', compact('product'));
     }
 
     /**
