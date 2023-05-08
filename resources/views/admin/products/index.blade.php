@@ -26,7 +26,7 @@
             <form action="{{ route('products.search') }}" method="POST" class="form form-inline">
                 @csrf
                 <select name="category" class="form-control">
-                    <option value="">Categoria</option>
+                    <option value=''>Categoria</option>
                     @foreach($categories as $id => $category)
                         <option value="{{ $id }}">{{ $category }}</option>
                     @endforeach
@@ -61,7 +61,11 @@
             </table>
         </div>
         <div class="card-footer">
-
+            @if (isset($filters))
+                {!! $products->appends($filters)->links() !!}
+            @else
+                {!! $products->links() !!}
+            @endif
         </div>
     </div>
 @stop

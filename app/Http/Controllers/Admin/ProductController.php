@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->product->with('category')->get();
+        $products = $this->product->with('category')->paginate(1);
         return view('admin.products.index', compact('products'));
     }
 
@@ -95,6 +95,7 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
+        $filters = $request->except('_token');
         $products = $this->product
             ->with(['category'])
             ->where(function ($query) use ($request) {
@@ -107,14 +108,14 @@ class ProductController extends Controller
                 }
 
                 if ($request->has('price')) {
-                    $query->where('price', $request->price);
+                    $query->Where('price', $request->price);
                 }
 
                 if ($request->category) {
                     $query->orWhere('category_id', $request->category);
                 }
             })
-            ->get();
-        return view('admin.products.index', compact('products'));
+            ->paginate(1);
+        return view('admin.products.index', compact('products', 'filters'));
     }
 }
