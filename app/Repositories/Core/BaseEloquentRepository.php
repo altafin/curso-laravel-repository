@@ -3,46 +3,69 @@
 namespace App\Repositories\Core;
 
 use App\Repositories\Contracts\RepositoryInterface;
+use App\Repositories\Exceptions\NotEntityDefined;
 
 class BaseEloquentRepository implements RepositoryInterface
 {
+    protected $entity;
+    public function __construct()
+    {
+        $this->entity = $this->resolveEntity();
+    }
+
     public function getAll()
     {
-        // TODO: Implement getAll() method.
+        return $this->entity->get();
     }
 
     public function findById($id)
     {
-        // TODO: Implement findById() method.
+        return $this->entity->find($id);
     }
 
     public function findWhere($column, $value)
     {
-        // TODO: Implement findWhere() method.
+        return $this->entity
+            ->where($column, $value)
+            ->get();
     }
 
     public function findWhereFirst($column, $value)
     {
-        // TODO: Implement findWhereFirst() method.
+        return $this->entity
+            ->where($column, $value)
+            ->first();
     }
 
     public function paginate($totalPage = 10)
     {
-        // TODO: Implement paginate() method.
+        return $this->entity->paginate($totalPage);
     }
 
     public function store(array $data)
     {
-        // TODO: Implement store() method.
+        return $this->entity->create($data);
     }
 
     public function update($id, array $data)
     {
-        // TODO: Implement update() method.
+        $entity = $this->findById($id);
+        return $entity->update($data);
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->entity
+            ->find($id)
+            ->delete();
+    }
+
+    public function resolveEntity()
+    {
+        if (!method_exists($this, 'entity')) {
+            throw new NotEntityDefined();
+        }
+
+        return app($this->entity());
     }
 }
