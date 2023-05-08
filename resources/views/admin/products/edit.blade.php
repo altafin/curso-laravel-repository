@@ -21,10 +21,15 @@
         <div class="card-header"></div>
         <div class="card-body">
             @include('admin.includes.alerts')
-            <form action="{{ route('products.update', $product->id) }}" method="POST" class="form">
-                @method('PUT')
-                @include('admin.products._partials.form')
-            </form>
+            {{ Form::model($product, ['route' => ['products.update', $product->id], 'class' => 'form']) }}
+            @method('PUT')
+            @include('admin.products._partials.form')
+            {{ Form::close() }}
+
+{{--            <form action="{{ route('products.update', $product->id) }}" method="POST" class="form">--}}
+{{--                @method('PUT')--}}
+{{--                @include('admin.products._partials.form')--}}
+{{--            </form>--}}
         </div>
     </div>
 @stop

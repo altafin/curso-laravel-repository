@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::pluck('title', 'id');
         return view('admin.products.create', compact('categories'));
     }
 
@@ -62,7 +62,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $categories = Category::all();
+        $categories = Category::pluck('title', 'id');
         if(!$product = $this->product->find($id))
             return redirect()->back();
         return view('admin.products.edit', compact('product', 'categories'));
