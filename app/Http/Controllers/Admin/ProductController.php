@@ -96,7 +96,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $products = $this->product
-            ->with('category')
+            ->with(['category'])
             ->where(function ($query) use ($request) {
                 if ($request->has('name')) {
                     $filter = $request->name;
@@ -108,6 +108,10 @@ class ProductController extends Controller
 
                 if ($request->has('price')) {
                     $query->where('price', $request->price);
+                }
+
+                if ($request->category) {
+                    $query->orWhere('category_id', $request->category);
                 }
             })
             ->get();
