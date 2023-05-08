@@ -46,7 +46,7 @@ class BaseQueryBuilderRepository implements RepositoryInterface
     public function store(array $data)
     {
         return DB::table($this->tb)
-            ->store($data);
+            ->insert($data);
     }
 
     public function update($id, array $data)
