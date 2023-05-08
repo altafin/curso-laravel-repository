@@ -62,7 +62,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = Category::all();
+        if(!$product = $this->product->find($id))
+            return redirect()->back();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -70,7 +73,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($request->all());
     }
 
     /**
