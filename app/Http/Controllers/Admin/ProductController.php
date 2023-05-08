@@ -73,7 +73,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        dd($request->all());
+        $this->product
+            ->find($id)
+            ->update($request->all());
+
+        return redirect()
+            ->route('products.index')
+            ->withSuccess('Produto atualizado com sucesso');
     }
 
     /**
