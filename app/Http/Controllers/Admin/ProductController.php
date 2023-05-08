@@ -97,11 +97,21 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $data = $request->all();
-        $search = $data['filtro'];
         $products = $this->product
             ->with('category')
-            ->where('name', 'LIKE', "%{$search}%")
+            ->where(function ($query) use ($request) {
+                if ($request->has('name')) {
+                    $filter = $request->name;
+                    $query->where(function ($querySub) use ($filter) {
+                        $querySub->where('name', 'LIKE', "%{$filter}%")
+                            ->orWhere('description', 'LIKE', "%{$filter}%");
+                    });
+                }
+
+                if ($request->has('price')) {
+                    $query->where('price', $request->price);
+                }
+            })
             ->get();
         return view('admin.products.index', compact('products'));
     }
