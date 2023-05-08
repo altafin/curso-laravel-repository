@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->product->with('category')->paginate(1);
+        $products = $this->product->with('category')->paginate();
         return view('admin.products.index', compact('products'));
     }
 
@@ -115,7 +115,7 @@ class ProductController extends Controller
                     $query->orWhere('category_id', $request->category);
                 }
             })
-            ->paginate(1);
+            ->paginate();
         return view('admin.products.index', compact('products', 'filters'));
     }
 }
