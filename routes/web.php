@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     CategoryController,
     ProductController,
+    DashboardController,
 };
 
 /*
@@ -24,7 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
     Route::resource('categories', CategoryController::class);
 
-    Route::get('/', function () {})->name('admin');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin');
 });
 
 Auth::routes(['register' => false]);
@@ -33,4 +34,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

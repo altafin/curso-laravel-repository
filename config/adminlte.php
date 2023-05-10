@@ -292,13 +292,24 @@ return [
     'menu' => [
         'OPÇÕES',
         [
-            'text' => 'Categorias',
-            'url'  => 'admin/categories',
+            'text' => 'Dashboard',
+            'url'  => 'admin',
+            'icon' => 'fa fa-graduation-cap',
         ],
         [
-            'text'        => 'Produtos',
-            'url'         => 'admin/products',
-            'icon'        => 'far fa-fw fa-file',
+            'text' => 'Categorias',
+            'url'  => 'admin/categories',
+            'icon' => 'far fa-fw fa-object-group',
+        ],
+        [
+            'text' => 'Produtos',
+            'url'  => 'admin/products',
+            'icon' => 'fa fa-tasks',
+        ],
+        [
+            'text' => 'Usuários',
+            'url'  => 'admin/users',
+            'icon' => 'fa fa-users',
         ]
     ],
 
