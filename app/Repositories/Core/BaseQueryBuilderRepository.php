@@ -9,12 +9,12 @@ use App\Repositories\Contracts\RepositoryInterface;
 
 class BaseQueryBuilderRepository implements RepositoryInterface
 {
-    protected $tb;
+    protected $tb, $db;
     protected $orderBy = [
         'column' => '',
         'order' => 'DESC',
     ];
-    private $db;
+
     public function __construct(DB $db)
     {
         $this->tb = $this->resolveTable();

@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->repository->orderBy('title', 'ASC')->paginate();
+        $categories = $this->repository->orderBy('id', 'DESC')->paginate();
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -40,7 +40,7 @@ class CategoryController extends Controller
     {
         $categories = $this->repository->store([
             'title'       => $request->title,
-            'url'         => $request->url,
+//            'url'         => $request->url,
             'description' => $request->description,
         ]);
         return redirect()
@@ -78,7 +78,7 @@ class CategoryController extends Controller
         $this->repository
             ->update($id, [
                 'title'       => $request->title,
-                'url'         => $request->url,
+//                'url'         => $request->url,
                 'description' => $request->description,
             ]);
         return redirect()->route('categories.index');
