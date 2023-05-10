@@ -42,6 +42,7 @@ class UserController extends Controller
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
         $user = $this->repository->store($data);
+
         return redirect()
             ->route('users.index')
             ->withSuccess('Usuário Cadastrado');
@@ -72,7 +73,13 @@ class UserController extends Controller
      */
     public function update(StoreUpdateUserRequest $request, string $id)
     {
-        $this->repository->update($id, $request->all());
+        $data = $request->all();
+        if ($request->password)
+            $data['password'] = bcrypt($data['password']);
+        else
+            unset($data['password']);
+
+        $this->repository->update($id, $data);
 
         return redirect()
             ->route('users.index')
