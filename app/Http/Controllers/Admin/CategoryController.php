@@ -95,27 +95,7 @@ class CategoryController extends Controller
 
     public function search(Request $request) {
         $data = $request->except('_token');
-        if (isset($data['search'])) {
-            $categories = DB::table('categories')
-                ->where('title', $data['search'])
-                ->orWhere('url', $data['search'])
-                ->orWhere('description', 'LIKE', "%{$data['search']}%")
-                ->paginate();
-        } else {
-            $categories = DB::table('categories')
-                ->where(function ($query) use ($data) {
-                    if (isset($data['title'])) {
-                        $query->where('title', $data['title']);
-                    }
-                    if (isset($data['url'])) {
-                        $query->orWhere('url', $data['url']);
-                    }
-                    if (isset($data['description'])) {
-                        $query->orWhere('description', 'LIKE',  "%{$data['description']}%");
-                    }
-                })
-                ->paginate();
-        }
+        $categories = $this->repository->search($data);
         return view('admin.categories.index', compact('categories', 'data'));
     }
 }
