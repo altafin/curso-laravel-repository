@@ -11,7 +11,7 @@
             <a href="{{ route('products.create') }}" class="btn btn-success">Add</a>
         </div>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin') }}">Dashboard</a></li>
             <li class="breadcrumb-item active"><a href="{{ route('products.index') }}">Produtos</a></li>
             </li>
         </ol>
