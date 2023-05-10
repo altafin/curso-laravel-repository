@@ -23,6 +23,9 @@ use App\Http\Controllers\{
 */
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::any('users/search', [UserController::class, 'search'])->name('users.search');
+    Route::resource('users', UserController::class);
+
     Route::any('products/search', [ProductController::class, 'search'])->name('products.search');
     Route::resource('products', ProductController::class);
 
