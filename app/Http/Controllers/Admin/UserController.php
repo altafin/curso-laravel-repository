@@ -53,8 +53,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        if (!$user = $this->repository->findWhereFirst('id', $id));
-        return redirect()->back();
+        if (!$user = $this->repository->findWhereFirst('id', $id))
+            return redirect()->back();
+
         return view('admin.users.show', compact('user'));
     }
 
