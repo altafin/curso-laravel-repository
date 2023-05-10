@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateProductFormRequest;
+use App\Http\Requests\StoreUpdateUserRequest;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,6 @@ class UserController extends Controller
     {
         $users = $this->repository
             ->orderBy('id')
-            ->relationships('category')
             ->paginate();
         return view('admin.users.index', compact('users'));
     }
@@ -38,10 +37,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUpdateProductFormRequest $request)
+    public function store(StoreUpdateUserRequest $request)
     {
-
-        $user = $this->repository->store($request->all());
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+        $user = $this->repository->store($data);
         return redirect()
             ->route('users.index')
             ->withSuccess('Usuário Cadastrado');
@@ -70,7 +70,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUpdateProductFormRequest $request, string $id)
+    public function update(StoreUpdateUserRequest $request, string $id)
     {
         $this->repository->update($id, $request->all());
 

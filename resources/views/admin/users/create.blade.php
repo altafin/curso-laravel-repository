@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Cadastrar Nova Categoria')
+@section('title', 'Cadastrar Novo Usuário')
 
 @section('content_header')
     <div class="row">
-        <h1>Cadastrar Nova Categoria</h1>
+        <h1>Cadastrar Novo Usuário</h1>
     </div>
 @stop
 
@@ -12,8 +12,8 @@
     <div class="card card-primary">
         <div class="card-body">
             @include('admin.includes.alerts')
-            <form action="{{ route('categories.store') }}" class="form" method="POST">
-                @include('admin.categories._partials.form')
+            <form action="{{ route('users.store') }}" class="form" method="POST">
+                @include('admin.users._partials.form')
             </form>
         </div>
     </div>

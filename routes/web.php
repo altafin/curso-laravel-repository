@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\{
     CategoryController,
     ProductController,
     DashboardController,
+    UserController,
 };
 
 use App\Http\Controllers\{

@@ -1,13 +1,11 @@
 @csrf
 <div class="form-group">
-    <input type="text" value="{{ $category->title ?? old('title') }}" name="title" class="form-control" placeholder="Título">
+    <input type="text" value="{{ $user->name ?? old('title') }}" name="name" class="form-control" placeholder="Nome">
 </div>
-{{--
 <div class="form-group">
-    <input type="text" value="{{ $category->url ?? old('url') }}" name="url" class="form-control" placeholder="URL">
+    <input type="text" value="{{ $user->email ?? old('email') }}" name="email" class="form-control" placeholder="E-mail">
 </div>
---}}
 <div class="form-group">
-    <textarea name="description" cols="30" rows="10" class="form-control" placeholder="Descrição">{{ $category->description ?? old('description') }}</textarea>
+    <input type="password" value="{{ $user->password ?? old('password') }}" name="password" class="form-control" placeholder="Senha">
 </div>
 <button type="submit" class="btn btn-success">Enviar</button>
