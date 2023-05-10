@@ -1,8 +1,10 @@
 <?php
-
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Admin\{
+    CategoryController,
+    ProductController,
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::any('admin/products/search', [ProductController::class, 'search'])->name('products.search');
-Route::resource('admin/products', ProductController::class);
-Route::any('admin/categories/search', [CategoryController::class, 'search'])->name('categories.search');
-Route::resource('admin/categories', CategoryController::class);
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::any('products/search', [ProductController::class, 'search'])->name('products.search');
+    Route::resource('products', ProductController::class);
+
+    Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+    Route::resource('categories', CategoryController::class);
+
+    Route::get('/', function () {})->name('admin');
+});
+
 
 Route::get('/', function () {
     return view('welcome');
