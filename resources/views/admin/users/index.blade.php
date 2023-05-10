@@ -24,10 +24,7 @@
         <div class="card-header">
             <form action="{{ route('users.search') }}" class="form form-inline" method="POST">
                 @csrf
-                <input type="text" name="search" placeholder="Pesquisar" class="form-control">
-                <input type="text" name="title" placeholder="Título" class="form-control" value="{{ $data['title'] ?? '' }}">
-                <input type="text" name="url" placeholder="URL" class="form-control" value="{{ $data['url'] ?? '' }}">
-                <input type="text" name="description" placeholder="Descrição" class="form-control" value="{{ $data['description'] ?? '' }}">
+                <input type="text" name="filter" placeholder="Filtrar" class="form-control">
                 <button type="submit" class="btn btn-success">Pesquisar</button>
             </form>
             @if (isset($data))

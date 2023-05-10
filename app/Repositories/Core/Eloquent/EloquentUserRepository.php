@@ -16,24 +16,11 @@ class EloquentUserRepository extends BaseEloquentRepository implements UserRepos
 
     public function search(Request $request)
     {
+        $filter = $request->filter;
+
         return $this->entity
-            ->where(function ($query) use ($request) {
-                if ($request->name) {
-                    $filter = $request->name;
-                    $query->where(function ($querySub) use ($filter) {
-                        $querySub->where('name', 'LIKE', "%{$filter}%")
-                            ->orWhere('description', 'LIKE', "%{$filter}%");
-                    });
-                }
-
-                if ($request->price) {
-                    $query->where('price', $request->price);
-                }
-
-                if ($request->category) {
-                    $query->orWhere('category_id', $request->category);
-                }
-            })
+            ->where('name', 'LIKE', "%{$filter}%")
+            ->orWhere('email', $filter)
             ->paginate();
     }
 }
